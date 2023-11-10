@@ -1,20 +1,2 @@
-# HerzenHelper-TimetableService
-Сервис проекта HerzenHelper для работы с расписанием РГПУ им. А.И.Герцена
-
-## Техническая информация
-Многоуровневая архитектура содержит следующие слои:
-* WebAPI - слой Endpoint API
-* Business - слой бизнес-логики
-* Data - слой репозиториев
-* Data.Provider
-* Data.Provider.MsSql.Ef - слой работы с базой данных
-* Mappers - слой с мапперами
-* Models.Db - слой с моделями базы данных
-* Models.Dto - слой внешних моделей
-* Validation - слой проверки входящих корректности данных
-
-## Основные технологии
-* ASP.NET Core - фреймворк для создания веб-приложений на платформе .NET
-* SQL Server - реляционная база данных
-* EntityFramework - библиотека для работы с базой данных
-* FluentValidation - библиотека для проверки данных
+# UniversityHelper-TimetableService
+Сервис проекта UniversityHelper для работы с расписанием
