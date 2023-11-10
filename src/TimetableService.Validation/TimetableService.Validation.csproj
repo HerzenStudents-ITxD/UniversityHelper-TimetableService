@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\TimetableService.Broker\TimetableService.Broker.csproj" />
+    <ProjectReference Include="..\TimetableService.Data\TimetableService.Data.csproj" />
+    <ProjectReference Include="..\TimetableService.Models.Dto\TimetableService.Models.Dto.csproj" />
+  </ItemGroup>
+
+</Project>
