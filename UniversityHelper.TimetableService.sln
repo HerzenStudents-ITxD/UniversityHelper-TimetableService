@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimetableService.Broker", "src\TimetableService.Broker\TimetableService.Broker.csproj", "{BEC681E9-11B7-425D-994A-27C1D1D98672}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimetableService.Broker", "src\TimetableService.Broker\TimetableService.Broker.csproj", "{BEC681E9-11B7-425D-994A-27C1D1D98672}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimetableService.Business", "src\TimetableService.Business\TimetableService.Business.csproj", "{5FF0DF9C-1704-45D5-BB86-93C389552970}"
 EndProject
