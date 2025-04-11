@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UniversityHelper.Core.BrokerSupport.Attributes.ParseEntity;
 
 namespace UniversityHelper.TimetableService.Models.Db;
 

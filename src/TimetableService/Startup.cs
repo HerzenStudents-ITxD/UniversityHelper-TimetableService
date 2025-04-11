@@ -16,7 +16,7 @@ using UniversityHelper.Core.RedisSupport.Constants;
 using UniversityHelper.Core.RedisSupport.Helpers;
 using UniversityHelper.Core.RedisSupport.Helpers.Interfaces;
 using UniversityHelper.TimetableService.Data.Provider.MsSql.Ef;
-using UniversityHelper.TimetableService.Models.Dto.Configurations;
+//using UniversityHelper.TimetableService.Models.Dto.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +24,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
+using UniversityHelper.TimetableService.Models.Dto.Configurations;
 
 namespace UniversityHelper.TimetableService;
 
@@ -132,9 +133,9 @@ public class Startup : BaseApiInfo
 
   public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
   {
-    app.UpdateDatabase<RightsServiceDbContext>();
+    app.UpdateDatabase<TimetableServiceDbContext>();
 
-    FlushRedisDbHelper.FlushDatabase(_redisConnStr, Cache.Timetable);
+    FlushRedisDbHelper.FlushDatabase(_redisConnStr, Cache.Events);
 
     app.UseForwardedHeaders();
 
