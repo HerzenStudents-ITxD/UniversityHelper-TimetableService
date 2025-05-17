@@ -1,55 +1,49 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+﻿// Program.cs — точка входа для TimetableService
+// .NET 9, современный стиль, все DI и Swagger подключены
+
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Serilog;
-using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore;
+using UniversityHelper.TimetableService.Business.Interfaces;
+using UniversityHelper.TimetableService.Business.Services;
+using UniversityHelper.TimetableService.Data.Provider;
 
-namespace UniversityHelper.TimetableService;
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-public class Program
+// Добавляем контроллеры (API endpoints)
+builder.Services.AddControllers();
+
+// Swagger — для тестирования и документации API
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
 {
-  public static void Main(string[] args)
-  {
-    var configuration = new ConfigurationBuilder()
-        .AddJsonFile("appsettings.json")
-        .Build();
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Timetable API", Version = "v1" });
+});
 
-    string seqServerUrl = Environment.GetEnvironmentVariable("seqServerUrl");
-    if (string.IsNullOrEmpty(seqServerUrl))
-    {
-      seqServerUrl = configuration["Serilog:WriteTo:1:Args:serverUrl"];
-    }
+// Подключение к базе данных через строку подключения из appsettings.json
+var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+builder.Services.AddDbContext<TimetableDbContext>(options =>
+    options.UseSqlite(connectionString));
 
-    string seqApiKey = Environment.GetEnvironmentVariable("seqApiKey");
-    if (string.IsNullOrEmpty(seqApiKey))
-    {
-      seqApiKey = configuration["Serilog:WriteTo:1:Args:apiKey"];
-    }
+// DI: сервис для работы с расписанием
+builder.Services.AddScoped<ITimetableService, TimetableService>();
 
-    Log.Logger = new LoggerConfiguration().ReadFrom
-        .Configuration(configuration)
-        .Enrich.WithProperty("Service", "TimetableService")
-        .WriteTo.Seq(
-            serverUrl: seqServerUrl,
-            apiKey: seqApiKey)
-        .CreateLogger();
+WebApplication app = builder.Build();
 
-    try
-    {
-      CreateHostBuilder(args).Build().Run();
-    }
-    catch (Exception exc)
-    {
-      Log.Fatal(exc, "Can not properly start TimetableService.");
-    }
-    finally
-    {
-      Log.CloseAndFlush();
-    }
-  }
-
-  public static IHostBuilder CreateHostBuilder(string[] args) =>
-      Host.CreateDefaultBuilder(args)
-          .UseSerilog()
-          .ConfigureWebHostDefaults(webBuilder => webBuilder.UseStartup<Startup>());
+// Swagger только в режиме разработки
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(); // минимальный стиль, без параметров
 }
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+// Запуск приложения
+app.Run();

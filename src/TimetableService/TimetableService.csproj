@@ -16,17 +16,15 @@
     <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
     <PackageReference Include="Serilog.Sinks.Seq" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.8.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TimetableService.Broker\TimetableService.Broker.csproj" />
     <ProjectReference Include="..\TimetableService.Business\TimetableService.Business.csproj" />
-    <ProjectReference Include="..\TimetableService.Data.Provider.MsSql.Ef\TimetableService.Data.Provider.MsSql.Ef.csproj" />
-    <ProjectReference Include="..\TimetableService.Data\TimetableService.Data.csproj" />
+    <ProjectReference Include="..\TimetableService.Data.Provider\TimetableService.Data.Provider.csproj" />
     <ProjectReference Include="..\TimetableService.Mappers\TimetableService.Mappers.csproj" />
     <ProjectReference Include="..\TimetableService.Models.Db\TimetableService.Models.Db.csproj" />
     <ProjectReference Include="..\TimetableService.Models.Dto\TimetableService.Models.Dto.csproj" />
-    <ProjectReference Include="..\TimetableService.Validation\TimetableService.Validation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
