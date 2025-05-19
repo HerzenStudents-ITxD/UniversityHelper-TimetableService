@@ -14,7 +14,12 @@ public static class GroupMapper
             Id = group.Id,
             Institute = group.Institute,
             Faculty = group.Faculty,
+            Degree = group.Degree,
+            FormEducation = group.FormEducation,
             Course = group.Course,
+            Group = group.GroupName,
+            Direction = group.Direction,
+            SubGroup = group.SubGroup,
             Subjects = group.Subjects?.Select(s => s.ToDto()).ToList()
         };
     }

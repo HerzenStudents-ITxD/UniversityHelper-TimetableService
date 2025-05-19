@@ -78,13 +78,19 @@ public class TimetableService : ITimetableService
     {
         try
         {
-            _logger.LogInformation("Creating new group: {GroupName}", groupDto.GroupName);
+            _logger.LogInformation("Creating new group: {GroupName}", groupDto.Group);
             
             Group group = new Group
             {
                 Institute = groupDto.Institute,
                 Faculty = groupDto.Faculty,
+                Degree = groupDto.Degree,
+                FormEducation = groupDto.FormEducation,
                 Course = groupDto.Course,
+                GroupName = groupDto.Group,
+                Name = groupDto.Group,
+                Direction = groupDto.Direction,
+                SubGroup = groupDto.SubGroup,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
@@ -97,7 +103,7 @@ public class TimetableService : ITimetableService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error creating group: {GroupName}", groupDto.GroupName);
+            _logger.LogError(ex, "Error creating group: {GroupName}", groupDto.Group);
             throw;
         }
     }
@@ -117,7 +123,12 @@ public class TimetableService : ITimetableService
 
             group.Institute = groupDto.Institute;
             group.Faculty = groupDto.Faculty;
+            group.Degree = groupDto.Degree;
+            group.FormEducation = groupDto.FormEducation;
             group.Course = groupDto.Course;
+            group.GroupName = groupDto.Group;
+            group.Direction = groupDto.Direction;
+            group.SubGroup = groupDto.SubGroup;
             group.UpdatedAt = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();

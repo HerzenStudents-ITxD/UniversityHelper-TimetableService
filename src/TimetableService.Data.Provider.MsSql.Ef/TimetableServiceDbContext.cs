@@ -7,13 +7,15 @@ using System.Text;
 using System.Threading.Tasks;
 using UniversityHelper.Core.EFSupport.Provider;
 using UniversityHelper.TimetableService.Data.Models;
+using UniversityHelper.TimetableService.Data.Provider;
 
 namespace UniversityHelper.TimetableService.Data.Provider.MsSql.Ef;
 
 public class TimetableServiceDbContext : DbContext, IDataProvider
 {
-  public DbSet<DbGroup> Groups { get; set; }
-  public DbSet<DbSubject> Subjects { get; set; }
+  public DbSet<Group> Groups { get; set; }
+  public DbSet<Subject> Subjects { get; set; }
+  public DbSet<TimetableChange> TimetableChanges { get; set; }
 
   public TimetableServiceDbContext(DbContextOptions<TimetableServiceDbContext> options)
     : base(options)
@@ -23,7 +25,8 @@ public class TimetableServiceDbContext : DbContext, IDataProvider
   // Fluent API is written here.
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
-    // Конфигурации из Data.Models применяются в Data, здесь не нужны
+    base.OnModelCreating(modelBuilder);
+    // Здесь можно добавить дополнительные настройки моделей, если необходимо
   }
 
   public object MakeEntityDetached(object obj)

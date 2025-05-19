@@ -12,6 +12,7 @@ public class Group
     public string FormEducation { get; set; }
     public int Course { get; set; }
     public string GroupName { get; set; }
+    public string Name { get; set; }
     public string Direction { get; set; }
     public string SubGroup { get; set; }
     public List<Subject> Subjects { get; set; }
