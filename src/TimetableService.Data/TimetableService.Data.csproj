@@ -3,11 +3,17 @@
   <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
 
   <ItemGroup>
-    <ProjectReference Include="..\TimetableService.Data.Provider.MsSql.Ef\TimetableService.Data.Provider.MsSql.Ef.csproj" />
-    <ProjectReference Include="..\TimetableService.Data.Provider\TimetableService.Data.Provider.csproj" />
-    <ProjectReference Include="..\TimetableService.Mappers\TimetableService.Mappers.csproj" />
     <ProjectReference Include="..\TimetableService.Models.Db\TimetableService.Models.Db.csproj" />
     <ProjectReference Include="..\TimetableService.Models.Dto\TimetableService.Models.Dto.csproj" />
+    <ProjectReference Include="..\TimetableService.Data.Models\TimetableService.Data.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
 </Project>

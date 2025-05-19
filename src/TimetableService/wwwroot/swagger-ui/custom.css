@@ -1,0 +1,38 @@
+body {
+  background: #f5f6fa !important;
+}
+.swagger-ui .topbar {
+  background: #2353E1 !important;
+  padding-left: 40px;
+  background-image: url('herzen-logo.svg');
+  background-repeat: no-repeat;
+  background-size: 32px 32px;
+  background-position: 8px center;
+}
+.swagger-ui .topbar .download-url-wrapper {
+  display: none;
+}
+.swagger-ui .topbar .topbar-wrapper span {
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.swagger-ui .info {
+  background: #E6EEFA;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+.swagger-ui .scheme-container {
+  background: #fff;
+  border-radius: 8px;
+}
+.swagger-ui .opblock {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #2353e11a;
+}
+.swagger-ui .btn {
+  background: #2353E1 !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+} 

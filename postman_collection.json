@@ -1,0 +1,64 @@
+{
+  "info": {
+    "name": "Timetable API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get Groups",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/timetable/groups"
+      }
+    },
+    {
+      "name": "Get Teachers",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/timetable/teachers"
+      }
+    },
+    {
+      "name": "Get Timetable for Group",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:5000/timetable/groups/{{groupId}}/timetable"
+      }
+    },
+    {
+      "name": "Add Group",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"ИСТ-202\"\n}"
+        },
+        "url": "http://localhost:5000/timetable/groups"
+      }
+    },
+    {
+      "name": "Add Subject to Group",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Математика\",\n  \"teacher\": \"Иванов И.И.\",\n  \"room\": \"101\",\n  \"startTime\": \"2024-05-20T09:00:00\",\n  \"endTime\": \"2024-05-20T10:30:00\",\n  \"dayOfWeek\": 1\n}"
+        },
+        "url": "http://localhost:5000/timetable/groups/{{groupId}}/timetable"
+      }
+    },
+    {
+      "name": "Delete Subject from Group",
+      "request": {
+        "method": "DELETE",
+        "url": "http://localhost:5000/timetable/groups/{{groupId}}/timetable/{{subjectId}}"
+      }
+    }
+  ]
+} 

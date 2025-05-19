@@ -8,7 +8,7 @@ using UniversityHelper.TimetableService.Models.Dto;
 namespace UniversityHelper.TimetableService.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/timetable")]
 public class TimetableController : ControllerBase
 {
     private readonly ITimetableService _timetableService;
@@ -19,13 +19,6 @@ public class TimetableController : ControllerBase
     }
 
     // Группы
-    [HttpGet("groups")]
-    public async Task<ActionResult<List<GroupDto>>> GetAllGroups()
-    {
-        List<GroupDto> groups = await _timetableService.GetAllGroupsAsync();
-        return Ok(groups);
-    }
-
     [HttpGet("groups/{id}")]
     public async Task<ActionResult<GroupDto>> GetGroupById(Guid id)
     {
@@ -36,6 +29,13 @@ public class TimetableController : ControllerBase
         }
 
         return Ok(group);
+    }
+
+    [HttpGet("groups")]
+    public async Task<ActionResult<List<GroupDto>>> GetAllGroups()
+    {
+        List<GroupDto> groups = await _timetableService.GetAllGroupsAsync();
+        return Ok(groups);
     }
 
     [HttpPost("groups")]
@@ -58,7 +58,7 @@ public class TimetableController : ControllerBase
     }
 
     [HttpDelete("groups/{id}")]
-    public async Task<IActionResult> DeleteGroup(Guid id)
+    public async Task<ActionResult> DeleteGroup(Guid id)
     {
         await _timetableService.DeleteGroupAsync(id);
         return NoContent();
@@ -84,13 +84,6 @@ public class TimetableController : ControllerBase
         return Ok(subjects);
     }
 
-    [HttpGet("points/{pointId}/subjects")]
-    public async Task<ActionResult<List<SubjectDto>>> GetSubjectsByPointId(Guid pointId)
-    {
-        List<SubjectDto> subjects = await _timetableService.GetSubjectsByPointIdAsync(pointId);
-        return Ok(subjects);
-    }
-
     [HttpPost("subjects")]
     public async Task<ActionResult<SubjectDto>> CreateSubject(CreateSubjectDto subject)
     {
@@ -111,7 +104,7 @@ public class TimetableController : ControllerBase
     }
 
     [HttpDelete("subjects/{id}")]
-    public async Task<IActionResult> DeleteSubject(Guid id)
+    public async Task<ActionResult> DeleteSubject(Guid id)
     {
         await _timetableService.DeleteSubjectAsync(id);
         return NoContent();
@@ -119,22 +112,73 @@ public class TimetableController : ControllerBase
 
     // Расписание
     [HttpGet("groups/{groupId}/timetable")]
-    public async Task<ActionResult<List<SubjectDto>>> GetTimetableForGroup(
+    public async Task<ActionResult<PaginatedResult<SubjectDto>>> GetTimetableForGroup(
+        Guid groupId,
+        [FromQuery] DateTime startDate,
+        [FromQuery] DateTime endDate,
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 20)
+    {
+        PaginatedResult<SubjectDto> timetable = await _timetableService.GetTimetableForGroupAsync(groupId, startDate, endDate, pageNumber, pageSize);
+        return Ok(timetable);
+    }
+
+    [HttpGet("teachers/{teacherId}/timetable")]
+    public async Task<ActionResult<List<SubjectDto>>> GetTeacherTimetable(
+        Guid teacherId,
+        [FromQuery] DateTime startDate,
+        [FromQuery] DateTime endDate)
+    {
+        List<SubjectDto> timetable = await _timetableService.GetTeacherTimetableAsync(teacherId, startDate, endDate);
+        return Ok(timetable);
+    }
+
+    [HttpGet("rooms/{roomId}/timetable")]
+    public async Task<ActionResult<List<SubjectDto>>> GetRoomTimetable(
+        string roomId,
+        [FromQuery] DateTime startDate,
+        [FromQuery] DateTime endDate)
+    {
+        List<SubjectDto> timetable = await _timetableService.GetRoomTimetableAsync(roomId, startDate, endDate);
+        return Ok(timetable);
+    }
+
+    // Изменения в расписании
+    [HttpGet("groups/{groupId}/changes")]
+    public async Task<ActionResult<List<TimetableChangeDto>>> GetTimetableChanges(
         Guid groupId,
         [FromQuery] DateTime startDate,
         [FromQuery] DateTime endDate)
     {
-        List<SubjectDto> timetable = await _timetableService.GetTimetableForGroupAsync(groupId, startDate, endDate);
-        return Ok(timetable);
+        List<TimetableChangeDto> changes = await _timetableService.GetTimetableChangesAsync(groupId, startDate, endDate);
+        return Ok(changes);
     }
 
-    [HttpGet("points/{pointId}/timetable")]
-    public async Task<ActionResult<List<SubjectDto>>> GetTimetableForPoint(
-        Guid pointId,
-        [FromQuery] DateTime startDate,
-        [FromQuery] DateTime endDate)
+    [HttpPost("changes")]
+    public async Task<ActionResult<TimetableChangeDto>> CreateTimetableChange(CreateTimetableChangeDto change)
     {
-        List<SubjectDto> timetable = await _timetableService.GetTimetableForPointAsync(pointId, startDate, endDate);
-        return Ok(timetable);
+        TimetableChangeDto createdChange = await _timetableService.CreateTimetableChangeAsync(change);
+        return CreatedAtAction(nameof(GetTimetableChanges), new { groupId = change.GroupId }, createdChange);
+    }
+
+    [HttpPut("changes/{id}")]
+    public async Task<ActionResult<TimetableChangeDto>> UpdateTimetableChange(
+        Guid id,
+        UpdateTimetableChangeDto change)
+    {
+        TimetableChangeDto updatedChange = await _timetableService.UpdateTimetableChangeAsync(id, change);
+        if (updatedChange == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(updatedChange);
+    }
+
+    [HttpDelete("changes/{id}")]
+    public async Task<ActionResult> DeleteTimetableChange(Guid id)
+    {
+        await _timetableService.DeleteTimetableChangeAsync(id);
+        return NoContent();
     }
 } 

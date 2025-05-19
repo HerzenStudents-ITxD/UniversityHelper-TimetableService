@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using UniversityHelper.TimetableService.Data.Provider.MsSql.Ef;
-using UniversityHelper.TimetableService.Models.Db;
 
 namespace HerzenHelper.TimetableService.Data.Provider.MsSql.Ef.Migrations;
 
@@ -13,7 +12,7 @@ public partial class InitialCreate : Migration
   protected override void Up(MigrationBuilder migrationBuilder)
   {
     migrationBuilder.CreateTable(
-        name: DbGroup.TableName,
+        name: "Groups",
         columns: table => new
         {
           Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -33,7 +32,7 @@ public partial class InitialCreate : Migration
         });
 
     migrationBuilder.CreateTable(
-        name: DbSubject.TableName,
+        name: "Subjects",
         columns: table => new
         {
           Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -51,20 +50,20 @@ public partial class InitialCreate : Migration
           table.ForeignKey(
                   name: "FK_Subjects_Groups_GroupId",
                   column: x => x.GroupId,
-                  principalTable: DbGroup.TableName,
+                  principalTable: "Groups",
                   principalColumn: "Id",
                   onDelete: ReferentialAction.Cascade);
         });
 
     migrationBuilder.CreateIndex(
         name: "IX_Subjects_GroupId",
-        table: DbSubject.TableName,
+        table: "Subjects",
         column: "GroupId");
   }
 
   protected override void Down(MigrationBuilder migrationBuilder)
   {
-    migrationBuilder.DropTable(name: DbSubject.TableName);
-    migrationBuilder.DropTable(name: DbGroup.TableName);
+    migrationBuilder.DropTable(name: "Subjects");
+    migrationBuilder.DropTable(name: "Groups");
   }
 }

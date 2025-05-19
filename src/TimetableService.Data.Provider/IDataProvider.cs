@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using UniversityHelper.Core.Attributes;
 using UniversityHelper.Core.EFSupport.Provider;
 using UniversityHelper.Core.Enums;
-using UniversityHelper.TimetableService.Models.Db;
+using UniversityHelper.TimetableService.Data.Models;
 
 namespace UniversityHelper.TimetableService.Data.Provider;
 
 [AutoInject(InjectType.Scoped)]
 public interface IDataProvider : IBaseDataProvider
 {
-  DbSet<DbGroup> Groups { get; set; }
-  DbSet<DbSubject> Subjects { get; set; }
+  DbSet<Group> Groups { get; set; }
+  DbSet<Subject> Subjects { get; set; }
 
 }

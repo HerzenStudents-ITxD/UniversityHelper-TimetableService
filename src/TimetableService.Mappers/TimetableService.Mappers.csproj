@@ -3,8 +3,8 @@
   <Import Project="$(ProjectDir)..\..\Common.Configurations.targets" />
 
   <ItemGroup>
-    <ProjectReference Include="..\TimetableService.Models.Db\TimetableService.Models.Db.csproj" />
     <ProjectReference Include="..\TimetableService.Models.Dto\TimetableService.Models.Dto.csproj" />
+    <ProjectReference Include="..\TimetableService.Data\TimetableService.Data.csproj" />
   </ItemGroup>
 
 </Project>

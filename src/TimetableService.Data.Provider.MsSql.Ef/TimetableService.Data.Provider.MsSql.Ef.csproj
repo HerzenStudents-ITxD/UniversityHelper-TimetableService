@@ -4,7 +4,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TimetableService.Data.Provider\TimetableService.Data.Provider.csproj" />
-    <ProjectReference Include="..\TimetableService.Models.Db\TimetableService.Models.Db.csproj" />
+    <ProjectReference Include="..\TimetableService.Data\TimetableService.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using UniversityHelper.TimetableService.Models.Db;
+using UniversityHelper.TimetableService.Data.Models;
 
 namespace UniversityHelper.TimetableService.Data.Provider;
 
 public class TimetableDbContext : DbContext
 {
-    public DbSet<DbGroup> Groups { get; set; }
-    public DbSet<DbSubject> Subjects { get; set; }
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Subject> Subjects { get; set; }
 
     public TimetableDbContext(DbContextOptions<TimetableDbContext> options)
         : base(options)
@@ -28,8 +28,6 @@ public class TimetableDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.ApplyConfiguration(new DbGroupConfiguration());
-        modelBuilder.ApplyConfiguration(new DbSubjectConfiguration());
+        // Конфигурации убраны, если нужны - перенести сюда из Data.Models
     }
 } 

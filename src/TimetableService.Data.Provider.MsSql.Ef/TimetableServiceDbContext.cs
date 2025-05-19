@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UniversityHelper.Core.EFSupport.Provider;
-using UniversityHelper.TimetableService.Models.Db;
+using UniversityHelper.TimetableService.Data.Models;
 
 namespace UniversityHelper.TimetableService.Data.Provider.MsSql.Ef;
 
@@ -23,7 +23,7 @@ public class TimetableServiceDbContext : DbContext, IDataProvider
   // Fluent API is written here.
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
-    modelBuilder.ApplyConfigurationsFromAssembly(Assembly.Load("UniversityHelper.TimetableService.Models.Db"));
+    // Конфигурации из Data.Models применяются в Data, здесь не нужны
   }
 
   public object MakeEntityDetached(object obj)
