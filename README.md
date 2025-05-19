@@ -10,11 +10,14 @@
 - Валидация и логирование
 
 ## Технологии
-- .NET 7
-- Entity Framework Core
+- .NET 9
+- Entity Framework Core 9.0.4
 - FluentValidation
 - xUnit
 - Swagger
+- PostgreSQL
+- Redis
+- RabbitMQ
 
 ## Установка
 ```bash
